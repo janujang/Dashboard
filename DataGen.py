@@ -1,14 +1,19 @@
 
-   
+
 import csv
 import random
 import time
 
 x_value = 0
-total_1 = 1000
-total_2 = 1000
+temp_1 = 1000
+temp_2 = 1000
+temp_3 = 1000
+temp_4 = 1000
+temp_5 = 1000
+fan = 0
+compressor = 0
 
-fieldnames = ["x_value", "total_1", "total_2"]
+fieldnames = ["x_value", "temp_1", "temp_2", "temp_3", "temp_4", "temp_5", "fan", "compressor"]
 
 
 with open('data.csv', 'w') as csv_file:
@@ -22,15 +27,26 @@ while True:
 
         info = {
             "x_value": x_value,
-            "total_1": total_1,
-            "total_2": total_2
+            "temp_1" : temp_1,
+            "temp_2" : temp_2,
+            "temp_3" : temp_3,
+            "temp_4" : temp_4,
+            "temp_5" : temp_5,
+            "fan" : fan,
+            "compressor" : compressor
         }
 
         csv_writer.writerow(info)
-        print(x_value, total_1, total_2)
+        print("time:", x_value, "temp_1:", temp_1, "temp_2:", temp_2, "temp_3:", temp_3, "temp_4:", temp_4, "temp_5:", temp_5, "fan:", fan, "compressor:", compressor)
 
         x_value += 1
-        total_1 = total_1 + random.randint(-6, 8)
-        total_2 = total_2 + random.randint(-5, 6)
+        #temperatures likely won't exceed (0, 8) celcius, fan and compressor are either on or off
+        temp_1 = random.randint(0, 8)
+        temp_2 = random.randint(0, 8)
+        temp_3 = random.randint(0, 8)
+        temp_4 = random.randint(0, 8)
+        temp_5 = random.randint(0, 8)
+        fan = random.randint(0, 1)
+        compressor = random.randint(0, 1)
 
     time.sleep(1)
