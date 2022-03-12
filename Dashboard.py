@@ -23,7 +23,7 @@ def matplotCanvas():
 
     figureCanvas = FigureCanvasTkAgg(figure1, root)
     # canvas.show()
-    figureCanvas.get_tk_widget().pack(side=LEFT, fill=BOTH)
+    figureCanvas.get_tk_widget().pack(side=LEFT, fill=BOTH, expand=TRUE)
     # side=BOTTOM, fill=BOTH, expand=TRUE
 
     figure2 = Figure(figsize=(5,5), dpi=100)
@@ -35,7 +35,9 @@ def matplotCanvas():
 
     figureCanvas = FigureCanvasTkAgg(figure2, root)
     # canvas.show()
-    figureCanvas.get_tk_widget().pack(side=LEFT, fill=BOTH)
+    figureCanvas.get_tk_widget().pack(side=LEFT, fill=BOTH, expand=TRUE)
+
+    #add navigation bar for graph
 
 
 
@@ -45,12 +47,24 @@ matplotCanvas()
 
 # frame = Frame(root, bg="black")
 # frame.place(relwidth=0.8, relheight=0.8, relx=0.1, rely=0.1)
-label = Label(text="Actions")
-label.pack()
+logslabel = Label(text="Import logs")
+logslabel.pack()
 
-openFile = Button(text="Open log", padx=10, pady=5, command=loadCSV)
+openFile = Button(text="Open file", padx=10, pady=5, command=loadCSV)
 openFile.pack()
 
+fanLabel = Label(text="Fan Status")
+fanLabel.pack()
+fanBtn = Button(text="On", padx=10, pady=5, bg="green")
+fanBtn.pack()
+
+compressorLabel = Label(text="Compressor Status")
+compressorLabel.pack()
+compressorBtn = Button(text="On", padx=10, pady=5, bg="green")
+compressorBtn.pack()
+
+
+#Alerts
 
 
 root.mainloop()
