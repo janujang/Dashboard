@@ -1,15 +1,17 @@
 from tkinter import *
 import os
 from tkinter import filedialog
+from matplotlib.animation import FuncAnimation
 from matplotlib.figure import Figure
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolbar2Tk
 import matplotlib.pyplot as plt
+import pandas as pd
 
 root = Tk()
 root.title("Fridge Dashboard")
 # canvas = Canvas(root, height = 700, width = 700, bg="#263D42")
 # canvas.pack()
-isOn = False
+isOn = True
 
 def loadCSV():
     filename = filedialog.askopenfile(initialdir="/", title="Select csv")
@@ -23,8 +25,20 @@ def loadCSV():
 
 def matplotCanvas():
     figure1 = Figure(figsize=(10,5), dpi=100)
+
+    data = pd.read_csv('data.csv')
+    x = data['x_value']
+    temp1 = data['temp_1']
+    temp2 = data['temp_2']
+    temp3 = data['temp_3']
+    temp4 = data['temp_4']
+    temp5 = data['temp_5']
+    fan = data['fan']
+    compressor = data['compressor']
+
+    # print (temp1)
     ax1 = figure1.add_subplot(111)
-    ax1.plot([1,2,3,4,5,6,7,8], [23,22,34,2,1,44,2,23])
+    ax1.plot(x, temp1, label='Channel1')
     ax1.set_title("Average temperature")
     ax1.set_xlabel("Time (s)")
     ax1.set_ylabel("Temp (C)")
@@ -58,6 +72,7 @@ def matplotCanvas():
 
 
 matplotCanvas()
+# ani = FuncAnimation(plt.gcf(), animate, interval=1000)
 # canvas = Canvas(height=700, width=1000, bg="white")
 # canvas.pack()
 
