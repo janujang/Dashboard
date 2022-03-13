@@ -123,10 +123,13 @@ def animate(i):
     avgTempBtn["text"] = round(avgTemp[-1],2)
     deviationBtn["text"] = round(deviations[-1],2)
 
-    if (avgTemp[-1] >= 8 or avgTemp[-1] <= 0):
+    if (avgTemp[-1] >= 4 or avgTemp[-1] <= 0):
         alertLabel["text"] = "Outside of range"
+        alertLabel["fg"] = "red"
     else:
         alertLabel["text"] = "Within range"
+        alertLabel["fg"] = "white"
+
 
 
 
@@ -175,7 +178,7 @@ openFile.pack(side=BOTTOM)
 
 
 #Alerts
-alertLabel = Label(text="")
+alertLabel = Label(text="", font=("Helvetica",20), padx=10, pady=10)
 alertLabel.pack()
 
 # continueBtn = Button(text="Continue", padx=10, pady=5, command=continueAnimation)
