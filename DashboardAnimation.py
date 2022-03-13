@@ -40,7 +40,7 @@ def toggleAnimation():
         pauseBtn["text"] = "Pause"
 
 
-fig = Figure(figsize=(10,10), dpi=100)
+fig = Figure(figsize=(15,15), dpi=100)
 ax1 = fig.add_subplot(211)
 ax2 = fig.add_subplot(212)
 
@@ -105,7 +105,7 @@ def animate(i):
     ax1.set_xlabel("Time (s)")
     ax1.set_ylabel("Temp (°C)")
 
-    ax2.set_title("Actuator States")
+    ax2.set_title("Actuator Data")
     ax2.set_xlabel("Time (s)")
     ax2.set_ylabel("On/Off")
     ax2.set_yticks([0,1])
@@ -119,6 +119,9 @@ def animate(i):
         compressorBtn["text"] = "On"
     else:
         compressorBtn["text"] = "Off"
+
+    avgTempBtn["text"] = round(avgTemp[-1],2)
+    deviationBtn["text"] = round(deviations[-1],2)
 
     if (avgTemp[-1] >= 8 or avgTemp[-1] <= 0):
         alertLabel["text"] = "Outside of range"
@@ -147,28 +150,38 @@ ani = FuncAnimation(fig, animate, interval=1000)
 # logslabel = Label(text="Import logs")
 # logslabel.pack()
 
-openFile = Button(text="Open file", padx=10, pady=5, command=loadCSV)
+openFile = Button(text="Open file", padx=10, pady=5, command=loadCSV, width = 10)
 openFile.pack()
 
 fanLabel = Label(text="Fan Status")
 fanLabel.pack()
-fanBtn = Button(text="On", padx=10, pady=5, bg="green")
+fanBtn = Button(text="On", padx=10, pady=5, width = 10)
 fanBtn.pack()
 
 compressorLabel = Label(text="Compressor Status")
 compressorLabel.pack()
-compressorBtn = Button(text="On", padx=10, pady=5, bg="green")
+compressorBtn = Button(text="On", padx=10, pady=5, width = 10)
 compressorBtn.pack()
+
+avgTempLabel = Label(text="Avg Temp")
+avgTempLabel.pack()
+avgTempBtn = Button(text="", padx=10, pady=5, width = 10)
+avgTempBtn.pack()
+
+deviationLabel = Label(text="Deviation")
+deviationLabel.pack()
+deviationBtn = Button(text="", padx=10, pady=5, width = 10)
+deviationBtn.pack()
 
 
 #Alerts
 alertLabel = Label(text="Good")
 alertLabel.pack(side=LEFT)
 
-# continueBtn = Button(text="Continue", padx=10, pady=5, bg="green", command=continueAnimation)
+# continueBtn = Button(text="Continue", padx=10, pady=5, command=continueAnimation)
 # continueBtn.pack(side=RIGHT)
 
-pauseBtn = Button(text="Pause", padx=10, pady=5, bg="green", command=toggleAnimation)
+pauseBtn = Button(text="Pause", padx=10, pady=5, command=toggleAnimation, width = 10)
 pauseBtn.pack(side=RIGHT)
 
 
