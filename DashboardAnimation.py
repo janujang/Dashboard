@@ -16,62 +16,70 @@ isOn = True
 def loadCSV():
     filename = filedialog.askopenfile(initialdir="/", title="Select csv")
     print (filename)
-    isOn = not isOn
-    if (isOn):
-        fanBtn["text"] = "On"
-    else:
-        fanBtn["text"] = "Off"
+    # isOn = not isOn
+    # if (isOn):
+    #     fanBtn["text"] = "On"
+    # else:
+    #     fanBtn["text"] = "Off"
 
 
-def matplotCanvas():
-    figure1 = Figure(figsize=(10,5), dpi=100)
+fig = Figure(figsize=(10,5), dpi=100)
+ax1 = fig.add_subplot(211)
+ax2 = fig.add_subplot(212)
+def animate(i):
+    #for posting temperature to an endpoint
+    # r = requests.post('http://myserver.com/api', json={"temp": "28"}) 
+    # print(r.status_code)
+
+
+    #get temperature
+    # r = requests.get("http://api.plos.org/search?q=title:DNA")
+    # print(r.content['journal'])
+    # temp = r.json()
 
     data = pd.read_csv('data.csv')
     x = data['x_value']
-    temp1 = data['temp_1']
-    temp2 = data['temp_2']
-    temp3 = data['temp_3']
-    temp4 = data['temp_4']
-    temp5 = data['temp_5']
-    fan = data['fan']
-    compressor = data['compressor']
+    y1 = data['temp_1']
+    y2 = data['temp_2']
 
-    # print (temp1)
-    ax1 = figure1.add_subplot(111)
-    ax1.plot(x, temp1, label='Channel1')
-    ax1.set_title("Average temperature")
-    ax1.set_xlabel("Time (s)")
+    ax1.clear()
+    ax2.clear()
+    ax1.plot(x, y1, label='Temp 1')
+    ax2.plot(x, y2, label='Temp 2')
+    ax1.set_ylim(bottom=0, top=10)
+    ax2.set_ylim(bottom=0, top=10)
+    ax1.set_xlim(left=max(0, i-10), right=i+10)
+    ax2.set_xlim(left=max(0, i-10), right=i+10)
+    # print(i)
+
+
+    # plt.plot(x, y2, label='Channel 2')
+
+    ax1.legend(loc='upper left')
+    ax2.legend(loc='upper left')
+    # plt.tight_layout()
+    ax1.set_title("Temperature Readings")
+    ax1.set_xlabel("Time (secs)")
     ax1.set_ylabel("Temp (C)")
 
-    figureCanvas1 = FigureCanvasTkAgg(figure1, root)
-    # canvas.show()
-    figureCanvas1.get_tk_widget().pack(side=LEFT, fill=BOTH, expand=TRUE)
-    # side=BOTTOM, fill=BOTH, expand=TRUE
-
-    #toolbar for figure1
-    toolbar = NavigationToolbar2Tk(figureCanvas1, root)
-    figureCanvas1._tkcanvas.pack(side=BOTTOM, fill=BOTH, expand=TRUE)
-    #anchor=NW
-    
-    figure2 = Figure(figsize=(10,5), dpi=100)
-    ax2 = figure2.add_subplot(111)
-    ax2.plot([1,2,3,4,5,6,7,8], [23,22,34,2,1,44,2,23])
-    ax2.set_title("Temperature Deviation")
-    ax2.set_xlabel("Time (s)")
-    ax2.set_ylabel("Deviation")
-
-    figureCanvas2 = FigureCanvasTkAgg(figure2, root)
-    # canvas.show()
-    figureCanvas2.get_tk_widget().pack(side=LEFT, fill=BOTH, expand=TRUE)
-
-    #toolbar for figure2
-    toolbar = NavigationToolbar2Tk(figureCanvas2, root)
-    figureCanvas2._tkcanvas.pack(side=BOTTOM, fill=BOTH, expand=TRUE)
-    #add navigation bar for graph
+    ax2.set_title("Temperature Readings")
+    ax2.set_xlabel("Time (secs)")
+    ax2.set_ylabel("Temp (C)")
 
 
 
-matplotCanvas()
+figureCanvas = FigureCanvasTkAgg(fig, root)
+figureCanvas.get_tk_widget().pack(side=LEFT, fill=BOTH, expand=TRUE)
+# side=BOTTOM, fill=BOTH, expand=TRUE
+
+#toolbar for figure1
+toolbar = NavigationToolbar2Tk(figureCanvas, root)
+figureCanvas._tkcanvas.pack(side=BOTTOM, fill=BOTH, expand=TRUE)
+#anchor=NW
+
+
+ani = FuncAnimation(fig, animate, interval=1000)
+
 # canvas = Canvas(height=700, width=1000, bg="white")
 # canvas.pack()
 
