@@ -7,16 +7,27 @@ from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolb
 import matplotlib.pyplot as plt
 import pandas as pd
 import csv
+from matplotlib import style
 
 root = Tk()
 root.title("Fridge Dashboard")
+style.use('seaborn')
 # canvas = Canvas(root, height = 700, width = 700, bg="#263D42")
 # canvas.pack()
 isOn = True
 
 def loadCSV():
-    filename = filedialog.askopenfile(initialdir="/", title="Select csv")
+    filename = filedialog.askopenfile(initialdir="/", title="Select log (csv)")
+    root.update()
+
     print (filename)
+
+    if filename != None:
+        fileData  = pd.read_csv(filename)
+        x = fileData['x_value']
+        temp1 = fileData['temp_1']
+        plt.plot(x, temp1, label="Collected data")
+        plt.show()
     # isOn = not isOn
     # if (isOn):
     #     fanBtn["text"] = "On"
