@@ -150,9 +150,6 @@ ani = FuncAnimation(fig, animate, interval=1000)
 # logslabel = Label(text="Import logs")
 # logslabel.pack()
 
-openFile = Button(text="Open file", padx=10, pady=5, command=loadCSV, width = 10)
-openFile.pack()
-
 fanLabel = Label(text="Fan Status")
 fanLabel.pack()
 fanBtn = Button(text="On", padx=10, pady=5, width = 10)
@@ -173,9 +170,12 @@ deviationLabel.pack()
 deviationBtn = Button(text="", padx=10, pady=5, width = 10)
 deviationBtn.pack()
 
+openFile = Button(text="Open file", padx=10, pady=5, command=loadCSV, width = 10)
+openFile.pack()
+
 
 #Alerts
-alertLabel = Label(text="Good")
+alertLabel = Label(text="")
 alertLabel.pack(side=LEFT)
 
 # continueBtn = Button(text="Continue", padx=10, pady=5, command=continueAnimation)
