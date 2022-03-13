@@ -30,11 +30,6 @@ def loadCSV():
         temp1 = fileData['temp_1']
         plt.plot(x, temp1, label="Collected data")
         plt.show()
-    # isOn = not isOn
-    # if (isOn):
-    #     fanBtn["text"] = "On"
-    # else:
-    #     fanBtn["text"] = "Off"
 
 
 fig = Figure(figsize=(10,10), dpi=100)
@@ -73,7 +68,7 @@ def animate(i):
         rms = math.sqrt((0.2)*(t1[i]*t1[i] + t2[i]*t2[i] +t3[i]*t3[i] + t4[i]*t4[i] + t5[i]*t5[i])) - avgTemp[i]
         deviations.append(rms)
         fanStates.append(fan[i])
-        compressorStates.append(fan[i])
+        compressorStates.append(compressor[i])
 
     ax1.clear()
     ax2.clear()
@@ -83,10 +78,12 @@ def animate(i):
     ax2.plot(x, fan, label='Fan State (on/off)')
     ax2.plot(x, compressor, label='Compressor State (on/off)')
     
-    ax1.set_ylim(bottom=0, top=10)
+    # ax1.set_ylim(bottom=0, top=10)
     # ax2.set_ylim(bottom=0, top=1)
-    ax1.set_xlim(left=max(0, i-10), right=i+10)
-    ax2.set_xlim(left=max(0, i-10), right=i+10)
+    ax1.set_xlim(left=max(0, i-20), right=i)
+    ax2.set_xlim(left=max(0, i-20), right=i)
+    # ax2.set_xlim(left=max(0, i-10), right=i+10)
+
     # print(i)
 
     ax1.legend(loc='upper left')
@@ -100,7 +97,7 @@ def animate(i):
     ax2.set_title("Actuator States")
     ax2.set_xlabel("Time (s)")
     ax2.set_ylabel("On/Off")
-    ax2.set_yticks([])
+    ax2.set_yticks([0,1])
 
     if (fanStates[-1] == 1):
         fanBtn["text"] = "On"
@@ -112,7 +109,7 @@ def animate(i):
     else:
         compressorBtn["text"] = "Off"
 
-    if (avgTemp[-1] >= 6 or deviations[-1] >= 2):
+    if (avgTemp[-1] >= 6):
         alertLabel["text"] = "Outside of range"
     else:
         alertLabel["text"] = "Within range"
