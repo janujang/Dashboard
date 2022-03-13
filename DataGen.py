@@ -1,15 +1,13 @@
-
-
 import csv
 import random
 import time
 
 x_value = 0
-temp_1 = 1000
-temp_2 = 1000
-temp_3 = 1000
-temp_4 = 1000
-temp_5 = 1000
+temp_1 = 0
+temp_2 = 0
+temp_3 = 0
+temp_4 = 0
+temp_5 = 0
 fan = 0
 compressor = 0
 
