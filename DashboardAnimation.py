@@ -19,6 +19,7 @@ style.use('seaborn')
 isPaused = False
 
 def loadCSV():
+    toggleAnimation()
     filename = filedialog.askopenfile(initialdir="/", title="Select log (csv)")
     root.update()
 
@@ -123,13 +124,12 @@ def animate(i):
     avgTempBtn["text"] = round(avgTemp[-1],2)
     deviationBtn["text"] = round(deviations[-1],2)
 
-    if (avgTemp[-1] >= 4 or avgTemp[-1] <= 0):
+    if (avgTemp[-1] >= 6 or avgTemp[-1] <= 0):
         alertLabel["text"] = "Outside of range"
         alertLabel["fg"] = "red"
     else:
         alertLabel["text"] = "Within range"
         alertLabel["fg"] = "white"
-
 
 
 
