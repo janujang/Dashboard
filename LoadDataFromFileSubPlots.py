@@ -4,6 +4,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation
 import requests 
+from matplotlib import animation, figure
 
 plt.style.use('seaborn')
 
@@ -51,16 +52,24 @@ def animate(i):
     # plt.plot(x, y2, label='Channel 2')
 
     ax1.legend(loc='upper left')
+    ax2.legend(loc='upper left')
     # plt.tight_layout()
-    
+    ax1.set_title("Temperature Readings")
+    ax1.set_xlabel("Time (secs)")
+    ax1.set_ylabel("Temp (C)")
 
+    ax2.set_title("Temperature Readings")
+    ax2.set_xlabel("Time (secs)")
+    ax2.set_ylabel("Temp (C)")
 
 
 ani = FuncAnimation(plt.gcf(), animate, interval=1000)
 
-ax1.set_title("Temperature Readings")
-ax1.set_xlabel("Time (secs)")
-ax1.set_xlabel("Temp (C)")
+# ax1.set_title("Temperature Readings")
+# ax1.set_xlabel("Time (secs)")
+# ax1.set_xlabel("Temp (C)")
+
+
 plt.show()
 plt.tight_layout()
 # fig.show()
