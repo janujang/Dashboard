@@ -42,7 +42,7 @@ def toggleAnimation():
 
 fig = Figure(figsize=(15,15), dpi=100)
 ax1 = fig.add_subplot(211)
-ax2 = fig.add_subplot(212)
+ax2 = fig.add_subplot(212, sharex = ax1)
 
 def animate(i):
     if (isPaused):
@@ -136,7 +136,7 @@ figureCanvas.get_tk_widget().pack(side=LEFT, fill=BOTH, expand=TRUE)
 
 #toolbar for figure1
 toolbar = NavigationToolbar2Tk(figureCanvas, root)
-figureCanvas._tkcanvas.pack(side=BOTTOM, fill=BOTH, expand=TRUE)
+figureCanvas._tkcanvas.pack(side=LEFT, fill=BOTH, expand=TRUE)
 #anchor=NW
 
 
@@ -171,18 +171,18 @@ deviationBtn = Button(text="", padx=10, pady=5, width = 10)
 deviationBtn.pack()
 
 openFile = Button(text="Open file", padx=10, pady=5, command=loadCSV, width = 10)
-openFile.pack()
+openFile.pack(side=BOTTOM)
 
 
 #Alerts
 alertLabel = Label(text="")
-alertLabel.pack(side=LEFT)
+alertLabel.pack()
 
 # continueBtn = Button(text="Continue", padx=10, pady=5, command=continueAnimation)
 # continueBtn.pack(side=RIGHT)
 
 pauseBtn = Button(text="Pause", padx=10, pady=5, command=toggleAnimation, width = 10)
-pauseBtn.pack(side=RIGHT)
+pauseBtn.pack(side=BOTTOM)
 
 
 
