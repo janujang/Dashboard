@@ -40,38 +40,40 @@ def animate(i):
     # print(r.content['journal'])
     # temp = r.json()
 
+    # use this approach to show information about the statuses and alerts
     with open('data.csv', 'r') as file:
         # [line.strip().split(',')[-1] for line in file.readlines()]
         data = file.readlines()[-1].split(',')
-        print(data)
+        # print(data)
         # reader = csv.reader(file)
         # # for row in reader:
         # #     print (row)
         # print(reader[-1])
 
-    # data = pd.read_csv('data.csv')
-    # x = data['x_value']
-    # temp1 = data['temp_1']
-    # temp2 = data['temp_2']
-    # temp3 = data['temp_3']
-    # temp4 = data['temp_4']
-    # temp5 = data['temp_5']
-    # fan = data['fan']
-    # compressor = data['compressor']
+    # use this approach to show graphs
+    dataCsv = pd.read_csv('data.csv')
+    x = dataCsv['x_value']
+    temp1Csv = dataCsv['temp_1']
+    temp2Csv = dataCsv['temp_2']
+    temp3 = dataCsv['temp_3']
+    temp4 = dataCsv['temp_4']
+    temp5 = dataCsv['temp_5']
+    # fan = dataCsv['fan']
+    # compressor = dataCsv['compressor']
 
-    x.append(data[0])
+    # x.append(data[0])
     temp1.append(data[1])
     temp2.append(data[2])
-    temp3 = data[3]
-    temp4 = data[4]
-    temp5 = data[5]
+    # temp3 = data[3]
+    # temp4 = data[4]
+    # temp5 = data[5]
     fan.append(data[6])
     compressor.append(data[7])
 
     ax1.clear()
     ax2.clear()
-    ax1.plot(x, temp1, label='Temp 1')
-    ax2.plot(x, temp2, label='Temp 2')
+    ax1.plot(x, temp1Csv, label='Temp 1')
+    ax2.plot(x, temp2Csv, label='Temp 2')
     ax1.set_ylim(bottom=0, top=10)
     ax2.set_ylim(bottom=0, top=10)
     # ax1.set_xlim(left=max(0, i-10), right=i+10)
@@ -96,6 +98,12 @@ def animate(i):
         fanBtn["text"] = "On"
     else:
         fanBtn["text"] = "Off"
+
+    # print (int(temp1[-1]))
+    if (int(temp1[-1]) >= 8):
+        alertLabel["text"] = "Warning"
+    else:
+        alertLabel["text"] = "Good"
 
 
 
@@ -134,6 +142,7 @@ compressorBtn.pack()
 
 
 #Alerts
-
+alertLabel = Label(text="Good")
+alertLabel.pack()
 
 root.mainloop()

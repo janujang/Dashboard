@@ -44,8 +44,8 @@ def animate(i):
     ax2.plot(x, y2, label='Temp 2')
     ax1.set_ylim(bottom=0, top=10)
     ax2.set_ylim(bottom=0, top=10)
-    ax1.set_xlim(left=max(0, i-10), right=i+10)
-    ax2.set_xlim(left=max(0, i-10), right=i+10)
+    # ax1.set_xlim(left=max(0, i-10), right=i+10)
+    # ax2.set_xlim(left=max(0, i-10), right=i+10)
     # print(i)
 
 
