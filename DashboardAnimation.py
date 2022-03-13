@@ -16,7 +16,7 @@ root.title("Fridge Dashboard")
 style.use('seaborn')
 # canvas = Canvas(root, height = 700, width = 700, bg="#263D42")
 # canvas.pack()
-isOn = True
+isPaused = False
 
 def loadCSV():
     filename = filedialog.askopenfile(initialdir="/", title="Select log (csv)")
@@ -31,12 +31,23 @@ def loadCSV():
         plt.plot(x, temp1, label="Collected data")
         plt.show()
 
+def toggleAnimation():
+    global isPaused
+    isPaused = not isPaused
+    if (isPaused):
+        pauseBtn["text"] = "Continue"
+    else:
+        pauseBtn["text"] = "Pause"
+
 
 fig = Figure(figsize=(10,10), dpi=100)
 ax1 = fig.add_subplot(211)
 ax2 = fig.add_subplot(212)
 
 def animate(i):
+    if (isPaused):
+        return 
+    
     #for posting temperature to an endpoint
     # r = requests.post('http://myserver.com/api', json={"temp": "28"}) 
     # print(r.status_code)
@@ -109,7 +120,7 @@ def animate(i):
     else:
         compressorBtn["text"] = "Off"
 
-    if (avgTemp[-1] >= 6):
+    if (avgTemp[-1] >= 8 or avgTemp[-1] <= 0):
         alertLabel["text"] = "Outside of range"
     else:
         alertLabel["text"] = "Within range"
@@ -152,6 +163,14 @@ compressorBtn.pack()
 
 #Alerts
 alertLabel = Label(text="Good")
-alertLabel.pack()
+alertLabel.pack(side=LEFT)
+
+# continueBtn = Button(text="Continue", padx=10, pady=5, bg="green", command=continueAnimation)
+# continueBtn.pack(side=RIGHT)
+
+pauseBtn = Button(text="Pause", padx=10, pady=5, bg="green", command=toggleAnimation)
+pauseBtn.pack(side=RIGHT)
+
+
 
 root.mainloop()
