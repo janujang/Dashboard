@@ -84,7 +84,7 @@ def animate(i):
     ax2.plot(x, compressor, label='Compressor State (on/off)')
     
     ax1.set_ylim(bottom=0, top=10)
-    ax2.set_ylim(bottom=0, top=1)
+    # ax2.set_ylim(bottom=0, top=1)
     ax1.set_xlim(left=max(0, i-10), right=i+10)
     ax2.set_xlim(left=max(0, i-10), right=i+10)
     # print(i)
@@ -100,7 +100,7 @@ def animate(i):
     ax2.set_title("Actuator States")
     ax2.set_xlabel("Time (s)")
     ax2.set_ylabel("On/Off")
-    # ax2.set_yticklabels(ticklabel_format.astype(int))
+    ax2.set_yticks([])
 
     if (fanStates[-1] == 1):
         fanBtn["text"] = "On"
